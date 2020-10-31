@@ -93,3 +93,7 @@ exports.login = function(req, res){
         }
     });
 }
+
+exports.halamanrahasia = function(req, res){
+    response.ok("halaman ini hanya untuk yang punya token", res);
+}
