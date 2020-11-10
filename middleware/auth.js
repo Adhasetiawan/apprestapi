@@ -62,31 +62,34 @@ exports.login = function(req, res){
         }else{
             if (rows.length == 1){
                 //ini 1440 dalam second
-                var token = jwt.sign({rows}, config.secret,{expiresIn: 1440});
+                var token = jwt.sign({rows}, config.secret);
                 id_user = rows[0].id;
+                username = rows[0].username;
+                email = rows[0].email;
+                tanggal_daftar = rows[0].tanggal_daftar;
+                role = rows[0].role;
 
                 var data = {
                     id_user : id_user,
                     access_token : token,
+                    username : username,
+                    email : email,
+                    tanggal_daftar : tanggal_daftar,
+                    role : role,
                     ip_address : ip.address()
                 }
 
-                var query = "INSERT INTO ?? SET ?"
-                var table = ["akses_token"]
+                res.json({
+                     success : true,
+                     message : "Token JWT generate",
+                     token : token,
+                     idUser: data.id_user,
+                     username : username,
+                     email : data.email,
+                     tanggal_daftar : tanggal_daftar,
+                     role : data.role
+                    });
 
-                query = mysql.format(query, table);
-                connection.query(query, data, function(error, rows){
-                    if(error){
-                        console.log(error);
-                    }else{
-                         res.json({
-                             success : true,
-                             message : "Token JWT generate",
-                             token : token,
-                             currUser: data.id_user
-                         });
-                    }
-                });
             }else{
                  res.json({"Error": true, "Message":"Email atau password anda salah"});
             }
