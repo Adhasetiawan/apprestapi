@@ -68,26 +68,20 @@ exports.login = function(req, res){
                 email = rows[0].email;
                 tanggal_daftar = rows[0].tanggal_daftar;
                 role = rows[0].role;
-
-                var data = {
+                
+                const user = {
                     id_user : id_user,
-                    access_token : token,
                     username : username,
                     email : email,
-                    tanggal_daftar : tanggal_daftar,
                     role : role,
-                    ip_address : ip.address()
+                    tanggal_daftar : tanggal_daftar,
                 }
-
+                
                 res.json({
                      success : true,
                      message : "Token JWT generate",
                      token : token,
-                     idUser: data.id_user,
-                     username : username,
-                     email : data.email,
-                     tanggal_daftar : tanggal_daftar,
-                     role : data.role
+                     data_user : user
                     });
 
             }else{
