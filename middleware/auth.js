@@ -61,8 +61,8 @@ exports.login = function(req, res){
             console.log(error);
         }else{
             if (rows.length == 1){
-                //ini 1440 dalam second
-                var token = jwt.sign({rows}, config.secret);
+                //ini 36000 dalam second
+                var token = jwt.sign({rows}, config.secret, {expiresIn: 36000});
                 id_user = rows[0].id;
                 username = rows[0].username;
                 email = rows[0].email;
