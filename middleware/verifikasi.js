@@ -9,11 +9,10 @@ function verifikasi(){
             var token = tokenWithBearer.split(' ')[1];
             //verifikasi
             jwt.verify(token, config.secret, function(err, decoded){
-                console.log(decoded);
                 if(err){
                     return rest.status(401).send({auth:false, message:"Token tidak terdaftar!"});
                 }else{
-                    if(decoded.row[0].role ){
+                    if(decoded.rows[0].role == 2){
                         req.auth = decoded;
                         next();
                     }else{
